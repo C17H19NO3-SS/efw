@@ -1,0 +1,40 @@
+{
+  "name": "typescript-web-framework",
+  "version": "1.0.0",
+  "description": "A lightweight, type-safe web framework built with TypeScript",
+  "main": "index.ts",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "build": "bun build index.ts --outdir dist",
+    "test": "bun test",
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "handlebars": "^4.7.8",
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/handlebars": "^4.1.0",
+    "@types/ejs": "^3.1.5"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "keywords": [
+    "typescript",
+    "web-framework",
+    "http",
+    "server",
+    "middleware",
+    "routing",
+    "authentication"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
