@@ -10,10 +10,12 @@
     "dev": "bun --hot index.ts",
     "build": "bun build index.ts --outdir dist",
     "start": "bun index.ts",
+    "portfolio": "bun examples/portfolio.ts",
+    "portfolio:setup": "bash scripts/setup-mysql.sh",
     "test": "bun test",
     "test:all": "bun run tests/run-tests.ts",
     "test:unit": "bun run tests/run-tests.ts --suites unit",
-    "test:integration": "bun run tests/run-tests.ts --suites integration", 
+    "test:integration": "bun run tests/run-tests.ts --suites integration",
     "test:performance": "bun run tests/run-tests.ts --suites performance",
     "test:coverage": "bun run tests/run-tests.ts --coverage",
     "test:watch": "bun run scripts/test-watch.ts",
@@ -23,9 +25,10 @@
     "test:sequential": "bun run tests/run-tests.ts --sequential"
   },
   "dependencies": {
-    "jsonwebtoken": "^9.0.2",
+    "ejs": "^3.1.9",
     "handlebars": "^4.7.8",
-    "ejs": "^3.1.9"
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.14.1"
   },
   "devDependencies": {
     "@types/bun": "latest",
