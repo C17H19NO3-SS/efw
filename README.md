@@ -1,6 +1,6 @@
-# TypeScript Web Framework
+# EFW (Efficient Framework for Web)
 
-A comprehensive, production-ready web framework built with TypeScript, featuring advanced routing, authentication, monitoring, developer tools, and extensive utility libraries.
+A comprehensive, production-ready web framework built with TypeScript and Bun, featuring advanced routing, authentication, monitoring, developer tools, and extensive utility libraries.
 
 ## Features
 
@@ -29,7 +29,7 @@ A comprehensive, production-ready web framework built with TypeScript, featuring
 
 ### 🛠️ Developer Tools
 - **API Route Lister**: Visual interface for all registered routes
-- **Framework Info**: System status and configuration viewer
+- **EFW Info**: System status and configuration viewer
 - **Request Inspector**: Real-time request debugging with detailed logs
 - **API Tester**: Built-in Postman-like testing interface
 
@@ -51,15 +51,46 @@ A comprehensive, production-ready web framework built with TypeScript, featuring
 bun install
 ```
 
+## Testing
+
+EFW includes a comprehensive test suite with 141 tests covering all framework features:
+
+### Run Tests
+
+```bash
+# Run all tests
+bun test
+
+# Run specific test suites
+bun run test:unit           # Unit tests only
+bun run test:integration    # Integration tests
+bun run test:performance    # Performance tests
+
+# Advanced test options
+bun run test:coverage       # Run with coverage
+bun run test:watch          # Watch mode
+bun run test:verbose        # Detailed output
+bun run test:bail           # Stop on first failure
+```
+
+### Test Suites
+
+- **Utils Tests**: Environment, configuration, password hashing, caching
+- **Auth Tests**: JWT and session authentication
+- **Security Tests**: Rate limiting, CORS, helmet middleware
+- **Template Tests**: Handlebars and EJS rendering
+- **Monitoring Tests**: Request tracking, system metrics, dashboard
+- **Integration Tests**: Full framework integration scenarios
+
 ## Quick Start
 
 ### Basic Usage
 
 ```typescript
-import { Framework } from './src/framework';
+import { Efw } from './src/framework';
 import { ResponseBuilder } from './src/utils';
 
-const app = new Framework();
+const app = new Efw();
 
 app.get('/', (req, res) => {
   res.json(ResponseBuilder.success({ message: 'Hello World!' }));
@@ -80,7 +111,7 @@ app.listen(3000, () => {
 ### Advanced Usage with All Features
 
 ```typescript
-import { Framework } from './src/framework';
+import { Efw } from './src/framework';
 import { 
   createMonitoringMiddleware,
   ConfigManager,
@@ -90,7 +121,7 @@ import {
 
 // Initialize configuration
 const config = ConfigManager.getInstance();
-const app = new Framework();
+const app = new Efw();
 
 // Enable monitoring
 app.use(createMonitoringMiddleware());
@@ -148,7 +179,7 @@ app.listen(3000);
 
 ```
 src/
-├── framework.ts          # Main framework class
+├── framework.ts          # Main EFW class
 ├── router.ts            # Route handling
 ├── middleware.ts        # Middleware system
 ├── auth/
@@ -196,10 +227,10 @@ tests/                      # Test files
 
 ## API Documentation
 
-### Framework Class
+### EFW Class
 
 ```typescript
-const app = new Framework(options?: FrameworkOptions);
+const app = new Efw(options?: EfwOptions);
 
 // HTTP Methods
 app.get(path: string, ...handlers: Handler[])
@@ -318,7 +349,7 @@ Access these built-in tools during development:
 See `examples/feature-integration.ts` for a comprehensive example showing:
 
 ```typescript
-import { Framework } from './src/framework';
+import { Efw } from './src/framework';
 import { 
   createMonitoringMiddleware,
   ConfigManager,
@@ -327,7 +358,7 @@ import {
   ErrorPages
 } from './src/utils';
 
-const app = new Framework();
+const app = new Efw();
 const config = ConfigManager.getInstance();
 
 // Add monitoring and developer tools
@@ -372,7 +403,7 @@ LOG_LEVEL=debug
 ### Production Deployment
 
 ```typescript
-import { Framework } from './src/framework';
+import { Efw } from './src/framework';
 import { 
   ConfigManager,
   createMonitoringMiddleware,
@@ -380,7 +411,7 @@ import {
 } from './src/utils';
 
 const config = ConfigManager.getInstance();
-const app = new Framework();
+const app = new Efw();
 
 // Production middleware
 if (config.isProduction()) {
