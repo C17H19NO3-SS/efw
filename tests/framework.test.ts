@@ -1,17 +1,17 @@
 import { test, expect, describe } from 'bun:test';
-import { Framework } from '../src/framework';
+import { Efw } from '../src/framework';
 import { Router } from '../src/router';
 import { SchemaValidator, createSchema, commonSchemas } from '../src/validation/schema';
-import { FrameworkError, ValidationError } from '../src/utils/errors';
+import { EfwError, ValidationError } from '../src/utils/errors';
 
-describe('Framework Core', () => {
-  test('should create framework instance', () => {
-    const app = new Framework();
+describe('Efw Core', () => {
+  test('should create efw instance', () => {
+    const app = new Efw();
     expect(app).toBeDefined();
   });
 
   test('should register routes', () => {
-    const app = new Framework();
+    const app = new Efw();
     app.get('/test', (req, res) => {
       res.json({ test: true });
     });
@@ -128,8 +128,8 @@ describe('Validation', () => {
 });
 
 describe('Error Handling', () => {
-  test('should create framework error with status code', () => {
-    const error = new FrameworkError('Test error', 400);
+  test('should create efw error with status code', () => {
+    const error = new EfwError('Test error', 400);
     expect(error.statusCode).toBe(400);
     expect(error.message).toBe('Test error');
     expect(error.isOperational).toBe(true);

@@ -1,4 +1,4 @@
-import type { FrameworkRequest, FrameworkResponse } from '../types';
+import type { EfwRequest, EfwResponse } from '../types';
 import { Router } from '../router';
 
 export interface RouteInfo {
@@ -8,7 +8,7 @@ export interface RouteInfo {
   middleware: string[];
 }
 
-export interface FrameworkInfo {
+export interface EfwInfo {
   name: string;
   version: string;
   nodeVersion: string;
@@ -46,7 +46,7 @@ export class DevTools {
     this.router = router;
   }
 
-  logRequest(req: FrameworkRequest): void {
+  logRequest(req: EfwRequest): void {
     this.requestLogs.push({
       timestamp: new Date(),
       method: req.method,
@@ -84,9 +84,9 @@ export class DevTools {
     return routes;
   }
 
-  getFrameworkInfo(): FrameworkInfo {
+  getEfwInfo(): EfwInfo {
     return {
-      name: 'TypeScript Web Framework',
+      name: 'EFW (Efficient Framework for Web)',
       version: '1.0.0',
       nodeVersion: process.version,
       platform: process.platform,
@@ -120,7 +120,7 @@ export class DevTools {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Routes - Framework DevTools</title>
+    <title>API Routes - EFW DevTools</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -195,8 +195,8 @@ export class DevTools {
 </html>`;
   }
 
-  generateFrameworkInfoHTML(): string {
-    const info = this.getFrameworkInfo();
+  generateEfwInfoHTML(): string {
+    const info = this.getEfwInfo();
     
     return `
 <!DOCTYPE html>
@@ -204,7 +204,7 @@ export class DevTools {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Framework Info - DevTools</title>
+    <title>EFW Info - DevTools</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -252,14 +252,14 @@ export class DevTools {
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">Framework Information</h1>
+            <h1 class="title">EFW Information</h1>
             <p class="subtitle">System status and configuration details</p>
             <a href="/dev/dashboard" class="back-link">← Back to Dashboard</a>
         </div>
 
         <div class="grid">
             <div class="card">
-                <h2 class="card-title">Framework Details</h2>
+                <h2 class="card-title">EFW Details</h2>
                 <div class="metric">
                     <span class="metric-label">Name</span>
                     <span class="metric-value">${info.name}</span>
@@ -701,7 +701,7 @@ User-Agent: ${log.userAgent}
 export function createRequestInspectorMiddleware() {
   const devTools = DevTools.getInstance();
   
-  return async (req: FrameworkRequest, res: FrameworkResponse, next: () => Promise<void>) => {
+  return async (req: EfwRequest, res: EfwResponse, next: () => Promise<void>) => {
     devTools.logRequest(req);
     await next();
   };

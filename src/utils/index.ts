@@ -57,7 +57,7 @@ export type {
 
 export type { 
   RouteInfo, 
-  FrameworkInfo 
+  EfwInfo 
 } from './devtools';
 
 export type { 

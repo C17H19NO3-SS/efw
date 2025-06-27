@@ -1,5 +1,5 @@
 import ejs from 'ejs';
-import type { FrameworkRequest, FrameworkResponse } from '../types';
+import type { EfwRequest, EfwResponse } from '../types';
 
 export interface EjsOptions {
   viewsDir?: string;

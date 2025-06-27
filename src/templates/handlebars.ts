@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import type { FrameworkRequest, FrameworkResponse } from '../types';
+import type { EfwRequest, EfwResponse } from '../types';
 
 export interface HandlebarsOptions {
   viewsDir?: string;

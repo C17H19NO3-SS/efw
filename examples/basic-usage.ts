@@ -1,6 +1,6 @@
-// Basic usage example of the TypeScript Web Framework
+// Basic usage example of the EFW (Efficient Framework for Web)
 
-import { Framework } from '../src/framework';
+import { Efw } from '../src/framework';
 import { createJwtMiddleware, requireAuth } from '../src/auth/jwt';
 import { createSessionMiddleware } from '../src/auth/session';
 import { cors } from '../src/security/cors';
@@ -9,8 +9,8 @@ import { createBasicRateLimit } from '../src/security/rateLimit';
 import { validate, createSchema, commonSchemas } from '../src/validation/schema';
 import { logger } from '../src/utils/logger';
 
-// Create a new framework instance
-const app = new Framework({
+// Create a new EFW instance
+const app = new Efw({
   staticPath: './public',
   templateEngine: 'handlebars',
   templateDir: './views'

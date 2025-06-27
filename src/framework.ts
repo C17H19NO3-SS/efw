@@ -1,7 +1,7 @@
 import type { 
-  FrameworkOptions, 
-  FrameworkRequest, 
-  FrameworkResponse, 
+  EfwOptions, 
+  EfwRequest, 
+  EfwResponse, 
   Handler, 
   Middleware,
   ErrorMiddleware,
@@ -16,15 +16,15 @@ import {
   createStaticMiddleware 
 } from './middleware';
 
-export class Framework {
+export class Efw {
   private router: Router;
   private middlewareStack: MiddlewareStack;
-  private options: FrameworkOptions;
+  private options: EfwOptions;
   private server?: any;
   private templateEngine?: 'handlebars' | 'ejs';
   private templateDir: string = './views';
 
-  constructor(options: FrameworkOptions = {}) {
+  constructor(options: EfwOptions = {}) {
     this.options = options;
     this.router = new Router();
     this.middlewareStack = new MiddlewareStack();
@@ -84,7 +84,7 @@ export class Framework {
     }
   }
 
-  private createRequest(request: Request): FrameworkRequest {
+  private createRequest(request: Request): EfwRequest {
     const url = new URL(request.url);
     
     return {
@@ -102,15 +102,17 @@ export class Framework {
     };
   }
 
-  private createResponse(): FrameworkResponse {
+  private createResponse(): EfwResponse {
     let statusCode = 200;
     const headers: Record<string, string> = {};
     let responseBody: any;
     let isResponseSent = false;
 
-    const response: FrameworkResponse = {
+    const response: EfwResponse = {
       statusCode,
       headers,
+      templateEngine: this.templateEngine,
+      templateDir: this.templateDir,
       
       json(data: any): void {
         if (isResponseSent) return;
@@ -133,7 +135,7 @@ export class Framework {
         isResponseSent = true;
       },
 
-      status(code: number): FrameworkResponse {
+      status(code: number): EfwResponse {
         statusCode = code;
         response.statusCode = code;
         return response;
@@ -278,7 +280,7 @@ export class Framework {
     });
   }
 
-  public listen(port: number = 3000, callback?: () => void): void {
+  public listen(port: number = 3000, callback?: () => void): any {
     this.server = Bun.serve({
       port,
       hostname: this.options.host || 'localhost',
@@ -288,6 +290,8 @@ export class Framework {
     if (callback) {
       callback();
     }
+
+    return this.server;
   }
 
   public close(): void {

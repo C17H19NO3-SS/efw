@@ -11,7 +11,7 @@ export class ErrorPages {
   private static defaultOptions: ErrorPageOptions = {
     showDetails: false,
     theme: 'light',
-    brandName: 'Framework',
+    brandName: 'EFW',
     homeUrl: '/',
   };
 

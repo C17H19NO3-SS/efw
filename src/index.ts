@@ -1,5 +1,5 @@
 // Core framework
-export { Framework } from './framework';
+export { Efw } from './framework';
 export { Router } from './router';
 export { MiddlewareStack } from './middleware';
 

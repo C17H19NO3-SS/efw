@@ -1,4 +1,4 @@
-export interface FrameworkRequest {
+export interface EfwRequest {
   method: string;
   url: string;
   path: string;
@@ -12,13 +12,13 @@ export interface FrameworkRequest {
   requestId?: string;
 }
 
-export interface FrameworkResponse {
+export interface EfwResponse {
   statusCode: number;
   headers: Record<string, string>;
   json(data: any): void;
   text(data: string): void;
   html(data: string): void;
-  status(code: number): FrameworkResponse;
+  status(code: number): EfwResponse;
   setHeader(name: string, value: string): void;
   cookie(name: string, value: string, options?: CookieOptions): void;
   redirect(url: string, code?: number): void;
@@ -37,7 +37,7 @@ export interface CookieOptions {
 }
 
 export interface Handler {
-  (req: FrameworkRequest, res: FrameworkResponse, next?: NextFunction): void | Promise<void>;
+  (req: EfwRequest, res: EfwResponse, next?: NextFunction): void | Promise<void>;
 }
 
 export interface NextFunction {
@@ -45,11 +45,11 @@ export interface NextFunction {
 }
 
 export interface Middleware {
-  (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction): void | Promise<void>;
+  (req: EfwRequest, res: EfwResponse, next: NextFunction): void | Promise<void>;
 }
 
 export interface ErrorMiddleware {
-  (error: Error, req: FrameworkRequest, res: FrameworkResponse, next: NextFunction): void | Promise<void>;
+  (error: Error, req: EfwRequest, res: EfwResponse, next: NextFunction): void | Promise<void>;
 }
 
 export interface Route {
@@ -60,7 +60,7 @@ export interface Route {
   handlers: Handler[];
 }
 
-export interface FrameworkOptions {
+export interface EfwOptions {
   port?: number;
   host?: string;
   cors?: CorsOptions;
@@ -113,12 +113,12 @@ export interface RateLimitOptions {
   statusCode?: number;
 }
 
-export class FrameworkError extends Error {
+export class EfwError extends Error {
   public statusCode: number;
   
   constructor(message: string, statusCode: number = 500) {
     super(message);
-    this.name = 'FrameworkError';
+    this.name = 'EfwError';
     this.statusCode = statusCode;
   }
 }

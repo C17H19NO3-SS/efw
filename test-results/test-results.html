@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TypeScript Web Framework - Test Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .summary { background: #f5f5f5; padding: 20px; border-radius: 5px; margin-bottom: 20px; }
+        .success { color: #28a745; }
+        .failure { color: #dc3545; }
+        .suite { margin-bottom: 15px; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .suite-header { font-weight: bold; margin-bottom: 10px; }
+        .metrics { display: flex; gap: 20px; }
+        .metric { text-align: center; }
+        .metric-value { font-size: 2em; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; }
+        .error { background-color: #f8d7da; padding: 10px; border-radius: 3px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>TypeScript Web Framework - Test Results</h1>
+    
+    <div class="summary">
+        <h2>Summary</h2>
+        <div class="metrics">
+            <div class="metric">
+                <div class="metric-value failure">0</div>
+                <div>Passed</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value failure">8</div>
+                <div>Failed</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">0</div>
+                <div>Skipped</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">2.73s</div>
+                <div>Duration</div>
+            </div>
+        </div>
+    </div>
+    
+    <h2>Test Suites</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Suite</th>
+                <th>Passed</th>
+                <th>Failed</th>
+                <th>Skipped</th>
+                <th>Duration</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+                <tr>
+                    <td>utils</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.89s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>auth</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.28s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>security</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.29s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>templates</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.29s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>monitoring</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.29s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>framework</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.10s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>integration</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.32s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td>performance</td>
+                    <td class="success">0</td>
+                    <td class="failure">1</td>
+                    <td>0</td>
+                    <td>0.24s</td>
+                    <td class="failure">
+                        ❌ FAIL
+                    </td>
+                </tr>
+            
+        </tbody>
+    </table>
+    
+    
+        <div class="suite">
+            <div class="suite-header">utils - Errors</div>
+            <div class="error">
+tests/utils.test.ts:
+(pass) Environment Helper > should get string values with defaults [26.09ms]
+(pass) Environment Helper > should get number values with defaults [0.40ms]
+(pass) Environment Helper > should get boolean values with defaults [0.26ms]
+52 |   });
+53 | 
+54 |   test('should get array values', () => {
+55 |     process.env.TEST_ARRAY = 'item1,item2,item3';
+56 |     expect(EnvHelper.getArray('TEST_ARRAY')).toEqual(['item1', 'item2', 'item3']);
+57 |     expect(EnvHelper.getArray('NON_EXISTENT', ['default'])).toEqual(['default']);
+                                                                 ^
+error: expect(received).toEqual(expected)
+
++ []
+- [
+-   "default"
+- ]
+
+- Expected  - 3
++ Received  + 1
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:57:61)
+(fail) Environment Helper > should get array values [1.79ms]
+(pass) Environment Helper > should check if environment is development/production [0.46ms]
+(pass) Configuration Manager > should be a singleton [0.10ms]
+(pass) Configuration Manager > should load configuration from object [0.25ms]
+(pass) Configuration Manager > should merge configurations [0.51ms]
+104 |     expect(config.get('e')).toBe(4);
+105 |   });
+106 | 
+107 |   test('should check environment types', () => {
+108 |     process.env.NODE_ENV = 'test';
+109 |     expect(config.isTest()).toBe(true);
+                                  ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: false
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:109:29)
+(fail) Configuration Manager > should check environment types [0.69ms]
+(pass) UUID Generator > should generate valid UUID v4 [0.49ms]
+(pass) UUID Generator > should generate short UUIDs [0.31ms]
+(pass) UUID Generator > should generate numeric UUIDs [0.19ms]
+(pass) UUID Generator > should generate timestamp-based UUIDs [0.27ms]
+(pass) UUID Generator > should generate URL-safe UUIDs [0.35ms]
+(pass) Password Hasher > should hash passwords securely [60.89ms]
+(pass) Password Hasher > should verify correct passwords [121.92ms]
+(pass) Password Hasher > should reject incorrect passwords [117.60ms]
+173 |     expect(isValid).toBe(false);
+174 |   });
+175 | 
+176 |   test('should check password strength', () => {
+177 |     expect(hasher.checkStrength('weak')).toBe('weak');
+178 |     expect(hasher.checkStrength('Medium123')).toBe('medium');
+                                                    ^
+error: expect(received).toBe(expected)
+
+Expected: "medium"
+Received: "strong"
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:178:47)
+(fail) Password Hasher > should check password strength [3.81ms]
+(pass) Password Hasher > should generate secure passwords [1.42ms]
+(pass) In-Memory Cache > should store and retrieve values [0.85ms]
+(pass) In-Memory Cache > should respect TTL [150.98ms]
+211 | 
+212 |     smallCache.set('key1', 'value1');
+213 |     smallCache.set('key2', 'value2');
+214 |     smallCache.set('key3', 'value3'); // Should evict key1
+215 | 
+216 |     expect(smallCache.get('key1')).toBeUndefined();
+                                         ^
+error: expect(received).toBeUndefined()
+
+Received: "value1"
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:216:36)
+(fail) In-Memory Cache > should respect max size with LRU eviction [2.29ms]
+222 |     cache.set('key1', 'value1');
+223 |     cache.get('key1'); // hit
+224 |     cache.get('key2'); // miss
+225 | 
+226 |     const stats = cache.getStats();
+227 |     expect(stats.hits).toBe(1);
+                             ^
+error: expect(received).toBe(expected)
+
+Expected: 1
+Received: 0
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:227:24)
+(fail) In-Memory Cache > should handle cache statistics [1.60ms]
+(pass) In-Memory Cache > should clear cache [0.70ms]
+243 |   test('should parse cookie strings', () => {
+244 |     const cookieString = 'name=value; httpOnly; secure; path=/; maxAge=3600';
+245 |     const parsed = CookieHelper.parse(cookieString);
+246 | 
+247 |     expect(parsed.name).toBe('value');
+248 |     expect(parsed.httpOnly).toBe(true);
+                                  ^
+error: expect(received).toBe(expected)
+
+Expected: true
+Received: undefined
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:248:29)
+(fail) Cookie Helper > should parse cookie strings [1.64ms]
+(pass) Cookie Helper > should serialize cookies [0.74ms]
+(pass) Cookie Helper > should handle cookie expiration [0.26ms]
+281 | 
+282 |   test('should parse query strings', () => {
+283 |     const result = parser.parse('name=John&age=30&hobbies=reading&hobbies=gaming');
+284 | 
+285 |     expect(result.name).toBe('John');
+286 |     expect(result.age).toBe('30');
+                             ^
+error: expect(received).toBe(expected)
+
+Expected: "30"
+Received: 30
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:286:24)
+(fail) Query String Parser > should parse query strings [2.32ms]
+(pass) Query String Parser > should handle URL decoding [0.30ms]
+(pass) Query String Parser > should stringify objects [1.62ms]
+317 |         }
+318 |       }
+319 |     };
+320 | 
+321 |     const result = parser.parse(parser.stringify(obj));
+322 |     expect(result['user[name]']).toBe('John');
+                                       ^
+error: expect(received).toBe(expected)
+
+Expected: "John"
+Received: undefined
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:322:34)
+(fail) Query String Parser > should handle nested objects [1.68ms]
+329 |     const data = { id: 1, name: 'Test' };
+330 |     const response = ResponseBuilder.success(data);
+331 | 
+332 |     expect(response.success).toBe(true);
+333 |     expect(response.data).toEqual(data);
+334 |     expect(response.timestamp).toBeDefined();
+                                     ^
+error: expect(received).toBeDefined()
+
+Received: undefined
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:334:32)
+(fail) Response Builder > should build success responses [1.00ms]
+336 | 
+337 |   test('should build error responses', () => {
+338 |     const response = ResponseBuilder.error('Something went wrong', 500);
+339 | 
+340 |     expect(response.success).toBe(false);
+341 |     expect(response.error.message).toBe('Something went wrong');
+                                         ^
+error: expect(received).toBe(expected)
+
+Expected: "Something went wrong"
+Received: 500
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:341:36)
+(fail) Response Builder > should build error responses [0.91ms]
+348 |     const pagination = { page: 1, limit: 10, total: 2, totalPages: 1 };
+349 |     const response = ResponseBuilder.paginated(data, pagination);
+350 | 
+351 |     expect(response.success).toBe(true);
+352 |     expect(response.data).toEqual(data);
+353 |     expect(response.pagination).toEqual(pagination);
+                                      ^
+error: expect(received).toEqual(expected)
+
+  {
++   hasNext: false,
++   hasPrev: false,
+    limit: 10,
+    page: 1,
+    total: 2,
+    totalPages: 1,
+  }
+
+- Expected  - 0
++ Received  + 2
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:353:33)
+(fail) Response Builder > should build paginated responses [1.18ms]
+359 |       { field: 'password', message: 'Password too weak' }
+360 |     ];
+361 |     const response = ResponseBuilder.validationError(errors);
+362 | 
+363 |     expect(response.success).toBe(false);
+364 |     expect(response.error.code).toBe(400);
+                                      ^
+error: expect(received).toBe(expected)
+
+Expected: 400
+Received: "VALIDATION_ERROR"
+
+      at <anonymous> (/root/efw/tests/utils.test.ts:364:33)
+(fail) Response Builder > should build validation error responses [0.91ms]
+367 | });
+368 | 
+369 | describe('Asset Versioning', () => {
+370 |   test('should version CSS files', () => {
+371 |     const versioner = new AssetVersioning();
+372 |     const versionedPath = versioner.version('/css/style.css');
+                                          ^
+TypeError: versioner.version is not a function. (In 'versioner.version("/css/style.css")', 'versioner.version' is undefined)
+      at <anonymous> (/root/efw/tests/utils.test.ts:372:37)
+(fail) Asset Versioning > should version CSS files [1.22ms]
+374 |     expect(versionedPath).toMatch(/\/css\/style\.css\?v=[a-f0-9]+/);
+375 |   });
+376 | 
+377 |   test('should version JavaScript files', () => {
+378 |     const versioner = new AssetVersioning();
+379 |     const versionedPath = versioner.version('/js/app.js');
+                                          ^
+TypeError: versioner.version is not a function. (In 'versioner.version("/js/app.js")', 'versioner.version' is undefined)
+      at <anonymous> (/root/efw/tests/utils.test.ts:379:37)
+(fail) Asset Versioning > should version JavaScript files [0.68ms]
+383 | 
+384 |   test('should generate integrity hashes', () => {
+385 |     const versioner = new AssetVersioning();
+386 |     const integrity = versioner.generateIntegrity('test content');
+387 | 
+388 |     expect(integrity).toMatch(/^sha384-[A-Za-z0-9+/]+=*$/);
+                            ^
+error: Received value must be a string: null
+      at <anonymous> (/root/efw/tests/utils.test.ts:388:23)
+(fail) Asset Versioning > should generate integrity hashes [1.39ms]
+(pass) API Client > should create client instance [0.15ms]
+(pass) API Client > should handle request configuration [0.15ms]
+(pass) Error Pages > should generate 404 error page [0.67ms]
+(pass) Error Pages > should generate 500 error page [0.24ms]
+(pass) Error Pages > should generate custom error page [0.25ms]
+(pass) Memoization > should memoize function results [1.14ms]
+(pass) Memoization > should respect TTL in memoization [150.85ms]
+
+15 tests failed:
+(fail) Environment Helper > should get array values [1.79ms]
+(fail) Configuration Manager > should check environment types [0.69ms]
+(fail) Password Hasher > should check password strength [3.81ms]
+(fail) In-Memory Cache > should respect max size with LRU eviction [2.29ms]
+(fail) In-Memory Cache > should handle cache statistics [1.60ms]
+(fail) Cookie Helper > should parse cookie strings [1.64ms]
+(fail) Query String Parser > should parse query strings [2.32ms]
+(fail) Query String Parser > should handle nested objects [1.68ms]
+(fail) Response Builder > should build success responses [1.00ms]
+(fail) Response Builder > should build error responses [0.91ms]
+(fail) Response Builder > should build paginated responses [1.18ms]
+(fail) Response Builder > should build validation error responses [0.91ms]
+(fail) Asset Versioning > should version CSS files [1.22ms]
+(fail) Asset Versioning > should version JavaScript files [0.68ms]
+(fail) Asset Versioning > should generate integrity hashes [1.39ms]
+--------------------------|---------|---------|-------------------
+File                      | % Funcs | % Lines | Uncovered Line #s
+--------------------------|---------|---------|-------------------
+All files                 |   31.11 |   41.13 |
+ src/framework.ts         |    0.00 |    7.26 | 27-44,48,52,56,60,64,68,72,76,80-83,87-101,105-277,281-289,293-295
+ src/middleware.ts        |    0.00 |    6.29 | 7-75,80-108,113-117,122-136,141-162,167-172,177-194
+ src/router.ts            |    0.00 |   14.29 | 6-17,21-29,33,37,41,45,49,53,57,61-115
+ src/utils/admin.ts       |    0.00 |    4.76 | 14-17,21,25,29,33-289,332,388-392,396-404,408-487
+ src/utils/assets.ts      |    9.09 |   22.78 | 37-40,44-69,73-76,80-82,86-117,121-126,130-136,140,144-146,151-152,156-158,162-166,170-174,191-194,198-202,207-208,212-213,218-221,226,230-249
+ src/utils/cache.ts       |   63.16 |   51.18 | 79-91,124,128-139,143-154,158-169,173-204,238-258
+ src/utils/client.ts      |    4.00 |    9.46 | 63-65,69-71,75-101,105-329,334,338,342,346,350-353,362
+ src/utils/config.ts      |   66.67 |   90.77 | 68,72,76-77,81
+ src/utils/cookies.ts     |   13.64 |   41.18 | 23,47,51,61,76-96,100-105,109,113-119,123-128,132-136,140,144-148,152-155,159-165,170,174,178-180,184-186,190-191,195,199
+ src/utils/dashboard.ts   |    0.00 |    4.26 | 4-8,12-20,24-163,181-182,186-209
+ src/utils/devtools.ts    |    0.00 |    3.56 | 38-41,45,49-63,67-83,87-106,110,114-190,198-327,337-470,491,696,701-705
+ src/utils/env.ts         |   84.62 |   96.97 | 79-80
+ src/utils/errorpages.ts  |   38.46 |   41.53 | 251-257,261-267,271-277,281-287,291-297,306-341,350-385
+ src/utils/index.ts       |  100.00 |  100.00 | 
+ src/utils/monitor.ts     |    0.00 |   13.27 | 35-38,42-74,78,82-89,93,97-99,103,107-112,116-134,139-147
+ src/utils/password.ts    |   84.21 |   73.48 | 52-57,61-81,102-109
+ src/utils/querystring.ts |   55.00 |   81.78 | 248-256,260-266,270-275,279-285,289-295,308,312
+ src/utils/response.ts    |   16.00 |   43.04 | 103,107,111,115-120,124-129,133-138,151-156,160-165,169-174,178-187,191-218,223,227,231,235,239-248,253-259,264-279,284,289-304
+ src/utils/uuid.ts        |   71.43 |   95.24 | 51-52
+ tests/test-helpers.ts    |   16.00 |   21.56 | 22-38,42,46-76,81,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+--------------------------|---------|---------|-------------------
+
+ 30 pass
+ 15 fail
+ 88 expect() calls
+Ran 45 tests across 1 files. [851.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">auth - Errors</div>
+            <div class="error">
+tests/auth.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should login with valid credentials [6204401.22ms]
+(fail) JWT Authentication > should login with valid credentials
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should reject invalid credentials [6204421.37ms]
+(fail) JWT Authentication > should reject invalid credentials
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should access protected route with valid token [6204442.17ms]
+(fail) JWT Authentication > should access protected route with valid token
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should reject access without token [6204451.32ms]
+(fail) JWT Authentication > should reject access without token
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should reject access with invalid token [6204464.82ms]
+(fail) JWT Authentication > should reject access with invalid token
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:114:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:51:14)
+(fail) JWT Authentication > should handle token expiration [6204474.22ms]
+(fail) ``�w   andle token expiration
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:296:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:217:14)
+(fail) Session Authentication > should create session on login [6204483.38ms]
+(fail) Session Authentication > should create session on login
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:296:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:217:14)
+(fail) Session Authentication > should access protected route with valid session [6204503.94ms]
+(fail) Session Authentication > should access protected route with valid session
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:296:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:217:14)
+(fail) Session Authentication > should reject access without session [6204520.99ms]
+(fail) Session Authentication > should reject access without session
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:296:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:217:14)
+(fail) Session Authentication > should handle session logout [6204528.36ms]
+(fail) Session Authentication > should handle session logout
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/auth.test.ts:296:22)
+      at <anonymous> (/root/efw/tests/auth.test.ts:217:14)
+(fail) Session Authentication > should handle session expiration [6204536.64ms]
+(fail)  `�w   andle session expiration
+(pass) Authentication Middleware > should handle missing authorization header [0.91ms]
+(pass) Authentication Middleware > should handle malformed authorization header [0.33ms]
+(pass) Authentication Middleware > should pass through valid authorization [0.25ms]
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   36.88 |   41.96 |
+ src/framework.ts      |   31.25 |   17.70 | 56,60,64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   35.71 |   36.46 | 41,45,49,53,57,61-115
+ tests/test-helpers.ts |   42.42 |   46.20 | 42,46-76,85,90-94,97-101,104,108,112,132-133,145-146,149-151,159,163,167-168,172-173,177-178,196-204,209-223
+ tests/test.config.ts  |   50.00 |   95.56 | 54
+-----------------------|---------|---------|-------------------
+
+ 3 pass
+ 22 fail
+ 6 expect() calls
+Ran 25 tests across 1 files. [251.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">security - Errors</div>
+            <div class="error">
+tests/security.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:81:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:17:14)
+(fail) CORS Middleware > should handle preflight OPTIONS request [6204659.91ms]
+(fail) CORS Middleware > should handle preflight OPTIONS request
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:81:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:17:14)
+(fail) CORS Middleware > should allow requests from allowed origins [6204675.99ms]
+(fail) CORS Middleware > should allow requests from allowed origins
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:81:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:17:14)
+(fail) CORS Middleware > should reject requests from disallowed origins [6204692.28ms]
+(fail) ��p   eject requests from disallowed origins
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:214:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:135:14)
+(fail) Security Headers Middleware (Helmet) > should set Content Security Policy header [6204700.75ms]
+(fail) Security Headers Middleware (Helmet) > should set Content Security Policy header
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:214:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:135:14)
+(fail) Security Headers Middleware (Helmet) > should set HSTS header [6204721.21ms]
+(fail) Security Headers Middleware (Helmet) > should set HSTS header
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:214:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:135:14)
+(fail) Security Headers Middleware (Helmet) > should set X-Content-Type-Options header [6204729.76ms]
+(fail) Security Headers Middleware (Helmet) > should set X-Content-Type-Options header
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:214:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:135:14)
+(fail) Security Headers Middleware (Helmet) > should set X-Frame-Options header [6204738.82ms]
+(fail) Security Headers Middleware (Helmet) > should set X-Frame-Options header
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:214:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:135:14)
+(fail) Security Headers Middleware (Helmet) > should set XSS Protection header [6204753.93ms]
+(fail) ``�p   et XSS Protection header
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:341:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:274:14)
+(fail) Rate Limiting Middleware > should allow requests within rate limit [6204766.06ms]
+(fail) Rate Limiting Middleware > should allow requests within rate limit
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:341:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:274:14)
+(fail) Rate Limiting Middleware > should block requests exceeding rate limit [6204774.82ms]
+(fail) Rate Limiting Middleware > should block requests exceeding rate limit
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:341:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:274:14)
+(fail) Rate Limiting Middleware > should reset rate limit after window expires [6204786.03ms]
+(fail) Rate Limiting Middleware > should reset rate limit after window expires
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:341:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:274:14)
+(fail) Rate Limiting Middleware > should include proper rate limit headers [6204794.59ms]
+(fail)  �p   nclude proper rate limit headers
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:477:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:421:14)
+(fail) Input Sanitization Middleware > should sanitize HTML in request body [6204805.47ms]
+(fail) Input Sanitization Middleware > should sanitize HTML in request body
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:477:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:421:14)
+(fail) Input Sanitization Middleware > should sanitize nested objects [6204814.07ms]
+(fail) Input Sanitization Middleware > should sanitize nested objects
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/security.test.ts:477:22)
+      at <anonymous> (/root/efw/tests/security.test.ts:421:14)
+(fail) Input Sanitization Middleware > should sanitize arrays [6204833.34ms]
+(fail) �`�p   anitize arrays
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   31.92 |   24.52 |
+ src/framework.ts      |   31.25 |   17.70 | 56,60,64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   35.71 |   36.46 | 41,45,49,53,57,61-115
+ tests/test-helpers.ts |   35.71 |   30.06 | 42,46-76,85,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+-----------------------|---------|---------|-------------------
+
+ 0 pass
+ 30 fail
+Ran 30 tests across 1 files. [269.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">templates - Errors</div>
+            <div class="error">
+tests/templates.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:162:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:25:16)
+(fail) Template Engine Integration > Handlebars Template Engine > should render simple variable substitution [6204960.71ms]
+(fail) Template Engine Integration > Handlebars Template Engine > should render simple variable substitution
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:162:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:25:16)
+(fail) Template Engine Integration > Handlebars Template Engine > should handle conditional rendering [6204977.25ms]
+(fail) Template Engine Integration > Handlebars Template Engine > should handle conditional rendering
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:162:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:25:16)
+(fail) Template Engine Integration > Handlebars Template Engine > should handle loops and iterations [6204995.72ms]
+(fail) Template Engine Integration > Handlebars Template Engine > should handle loops and iterations
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:162:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:25:16)
+(fail) Template Engine Integration > Handlebars Template Engine > should handle layout templates [6205001.86ms]
+(fail) Template Engine Integration > ``Z|   andle layout templates
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:345:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:214:16)
+(fail) Template Engine Integration > EJS Template Engine > should render EJS variable substitution [6205029.52ms]
+(fail) Template Engine Integration > EJS Template Engine > should render EJS variable substitution
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:345:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:214:16)
+(fail) Template Engine Integration > EJS Template Engine > should handle EJS conditional rendering [6205041.25ms]
+(fail) Template Engine Integration > EJS Template Engine > should handle EJS conditional rendering
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:345:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:214:16)
+(fail) Template Engine Integration > EJS Template Engine > should handle EJS loops [6205051.80ms]
+(fail) Template Engine Integration > EJS Template Engine > should handle EJS loops
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:345:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:214:16)
+(fail) Template Engine Integration > EJS Template Engine > should handle escaped vs raw output [6205064.53ms]
+(fail) Template Engine Integration >  Z|   andle escaped vs raw output
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:442:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:397:16)
+(fail) Template Engine Integration > Template Error Handling > should handle template compilation errors [6205076.50ms]
+(fail) Template Engine Integration > Template Error Handling > should handle template compilation errors
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:442:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:397:16)
+(fail) Template Engine Integration > Template Error Handling > should handle missing data errors [6205085.20ms]
+(fail) Template Engine Integration > Template Error Handling > should handle missing data errors
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:442:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:397:16)
+(fail) Template Engine Integration > Template Error Handling > should render successfully with valid template and data [6205103.30ms]
+(fail) Template Engine Integration >  "Z|   ender successfully with valid template and data
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/templates.test.ts:523:24)
+      at <anonymous> (/root/efw/tests/templates.test.ts:479:16)
+(fail) Template Engine Integration > Template Performance > should cache compiled templates for better performance [6205118.58ms]
+(fail) Template Engine Integration >  #Z|   ache compiled templates for better performance
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   28.57 |   24.16 |
+ src/framework.ts      |   25.00 |   17.28 | 52,56,60,64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   28.57 |   35.42 | 37,41,45,49,53,57,61-115
+ tests/test-helpers.ts |   35.71 |   30.06 | 42,46-76,85,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+-----------------------|---------|---------|-------------------
+
+ 0 pass
+ 24 fail
+Ran 24 tests across 1 files. [263.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">monitoring - Errors</div>
+            <div class="error">
+tests/monitoring.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track total request count [6205258.80ms]
+(fail) Request Monitoring > should track total request count
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track requests by HTTP method [6205281.18ms]
+(fail) Request Monitoring > should track requests by HTTP method
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track requests by path [6205295.81ms]
+(fail) Request Monitoring > should track requests by path
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track response times [6205312.79ms]
+(fail) Request Monitoring > should track response times
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track status codes [6205324.75ms]
+(fail) Request Monitoring > should track status codes
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should track error count [6205334.23ms]
+(fail) Request Monitoring > should track error count
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:129:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:15:14)
+(fail) Request Monitoring > should store detailed request information [6205343.10ms]
+(fail) Ppp   tore detailed request information
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:313:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:234:14)
+(fail) System Monitoring > should track system uptime [6205355.59ms]
+(fail) System Monitoring > should track system uptime
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:313:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:234:14)
+(fail) System Monitoring > should track memory usage [6205371.35ms]
+(fail) System Monitoring > should track memory usage
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:313:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:234:14)
+(fail) System Monitoring > should track CPU usage [6205378.41ms]
+(fail) System Monitoring > should track CPU usage
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:313:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:234:14)
+(fail) System Monitoring > should provide health check endpoint [6205389.82ms]
+(fail) �pp   rovide health check endpoint
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:501:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:361:14)
+(fail) Dashboard Generation > should generate HTML dashboard [6205397.48ms]
+(fail) Dashboard Generation > should generate HTML dashboard
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:501:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:361:14)
+(fail) Dashboard Generation > should provide dashboard data API [6205409.49ms]
+(fail) Dashboard Generation > should provide dashboard data API
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:501:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:361:14)
+(fail) Dashboard Generation > should include auto-refresh functionality [6205418.03ms]
+(fail) Dashboard Generation > should include auto-refresh functionality
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:501:22)
+      at <anonymous> (/root/efw/tests/monitoring.test.ts:361:14)
+(fail) Dashboard Generation > should style status codes appropriately [6205426.26ms]
+(fail) pp   tyle status codes appropriately
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   28.57 |   24.16 |
+ src/framework.ts      |   25.00 |   17.28 | 52,56,60,64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   28.57 |   35.42 | 37,41,45,49,53,57,61-115
+ tests/test-helpers.ts |   35.71 |   30.06 | 42,46-76,85,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+-----------------------|---------|---------|-------------------
+
+ 0 pass
+ 30 fail
+Ran 30 tests across 1 files. [278.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">framework - Errors</div>
+            <div class="error">
+tests/framework.test.ts:
+(pass) Framework Core > should create framework instance [0.63ms]
+(pass) Framework Core > should register routes [1.06ms]
+(pass) Router > should match simple routes [0.88ms]
+(pass) Router > should extract route parameters [0.33ms]
+(pass) Router > should handle multiple parameters [0.24ms]
+(pass) Router > should return null for non-matching routes [0.16ms]
+(pass) Validation > should validate required fields [1.15ms]
+(pass) Validation > should validate email format [0.41ms]
+(pass) Validation > should validate string length [0.29ms]
+(pass) Validation > should validate number ranges [0.28ms]
+(pass) Error Handling > should create framework error with status code [0.13ms]
+(pass) Error Handling > should create validation error [0.09ms]
+(pass) Common Schemas > should validate email schema [0.26ms]
+(pass) Common Schemas > should validate strong password schema [0.37ms]
+--------------------------|---------|---------|-------------------
+File                      | % Funcs | % Lines | Uncovered Line #s
+--------------------------|---------|---------|-------------------
+All files                 |   29.95 |   37.28 |
+ src/framework.ts         |   13.33 |   13.52 | 52,56,60,64,68,72,76,80-83,87-101,105-277,281-289,293-295
+ src/middleware.ts        |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts            |   40.00 |   49.46 | 37,41,45,49,53,57,76-115
+ src/utils/errors.ts      |   14.29 |   40.16 | 28-29,35-36,42-43,49-50,58-60,68-70,79-82,102-144,148-151,158,162-166,170-174
+ src/validation/schema.ts |   57.14 |   69.40 | 115-168,239
+--------------------------|---------|---------|-------------------
+
+ 14 pass
+ 0 fail
+ 37 expect() calls
+Ran 14 tests across 1 files. [72.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">integration - Errors</div>
+            <div class="error">
+tests/integration.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > End-to-End User Journey > should handle complete user registration and authentication flow [6205664.36ms]
+(fail) Full Framework Integration > End-to-End User Journey > should handle complete user registration and authentication flow
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > End-to-End User Journey > should handle admin operations [6205686.55ms]
+(fail) Full Framework Integration > �`,w   andle admin operations
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Security Integration > should enforce authentication on protected routes [6205697.36ms]
+(fail) Full Framework Integration > Security Integration > should enforce authentication on protected routes
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Security Integration > should enforce authorization on admin routes [6205707.62ms]
+(fail) Full Framework Integration > Security Integration > should enforce authorization on admin routes
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Security Integration > should include security headers [6205720.33ms]
+(fail) Full Framework Integration > Security Integration > should include security headers
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Security Integration > should handle CORS preflight requests [6205740.54ms]
+(fail) Full Framework Integration > `,w   andle CORS preflight requests
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Input Validation Integration > should validate required fields [6205749.33ms]
+(fail) Full Framework Integration > Input Validation Integration > should validate required fields
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Input Validation Integration > should validate email format [6205759.80ms]
+(fail) Full Framework Integration > Input Validation Integration > should validate email format
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Input Validation Integration > should handle malformed JSON [6205774.83ms]
+(fail) Full Framework Integration > ``,w   andle malformed JSON
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Template Rendering Integration > should render HTML templates [6205782.48ms]
+(fail) Full Framework Integration > �`,w   ender HTML templates
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Error Handling Integration > should return proper error responses for not found [6205801.72ms]
+(fail) Full Framework Integration > Error Handling Integration > should return proper error responses for not found
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Error Handling Integration > should handle duplicate registration [6205817.39ms]
+(fail) Full Framework Integration > �,w   andle duplicate registration
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Pagination Integration > should support pagination in user listing [6205825.93ms]
+(fail) Full Framework Integration > �,w   upport pagination in user listing
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/integration.test.ts:383:22)
+      at <anonymous> (/root/efw/tests/integration.test.ts:19:14)
+(fail) Full Framework Integration > Health Check Integration > should provide health status [6205835.13ms]
+(fail) Full Framework Integration >  `,w   rovide health status
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   40.89 |   39.31 |
+ src/framework.ts      |   43.75 |   18.52 | 64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   50.00 |   38.54 | 49,53,57,61-115
+ tests/test-helpers.ts |   35.71 |   30.06 | 42,46-76,85,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+ tests/test.config.ts  |   50.00 |   95.56 | 54
+-----------------------|---------|---------|-------------------
+
+ 0 pass
+ 28 fail
+Ran 28 tests across 1 files. [288.00ms]
+</div>
+        </div>
+    
+        <div class="suite">
+            <div class="suite-header">performance - Errors</div>
+            <div class="error">
+tests/performance.test.ts:
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Response Time Performance > should respond to fast endpoints quickly [6205947.06ms]
+(fail) Performance Tests > Response Time Performance > should respond to fast endpoints quickly
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Response Time Performance > should handle slow endpoints within acceptable time [6205960.87ms]
+(fail) Performance Tests > Response Time Performance > should handle slow endpoints within acceptable time
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Response Time Performance > should maintain performance under load [6205983.32ms]
+(fail) Performance Tests > `hq   aintain performance under load
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Throughput Performance > should handle concurrent requests efficiently [6205996.22ms]
+(fail) Performance Tests > Throughput Performance > should handle concurrent requests efficiently
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Throughput Performance > should handle burst traffic [6206007.24ms]
+(fail) Performance Tests > �`hq   andle burst traffic
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Resource Usage Performance > should handle CPU intensive operations efficiently [6206020.67ms]
+(fail) Performance Tests > Resource Usage Performance > should handle CPU intensive operations efficiently
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Resource Usage Performance > should handle memory intensive operations [6206036.03ms]
+(fail) Performance Tests > Resource Usage Performance > should handle memory intensive operations
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Resource Usage Performance > should handle large responses efficiently [6206046.89ms]
+(fail) Performance Tests > �hq   andle large responses efficiently
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Stress Testing > should maintain stability under heavy load [6206057.49ms]
+(fail) Performance Tests > Stress Testing > should maintain stability under heavy load
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Stress Testing > should recover from temporary overload [6206069.96ms]
+(fail) Performance Tests > Phq   ecover from temporary overload
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Memory Leak Detection > should not leak memory during repeated requests [6206077.37ms]
+(fail) Performance Tests > �hq   ot leak memory during repeated requests
+25 |   }
+26 | 
+27 |   async start(): Promise<void> {
+28 |     return new Promise((resolve) => {
+29 |       this.server = this.app.listen(this.port, () => {
+30 |         this.port = this.server.port;
+                              ^
+TypeError: undefined is not an object (evaluating 'this.server.port')
+      at <anonymous> (/root/efw/tests/test-helpers.ts:30:26)
+      at listen (/root/efw/src/framework.ts:289:7)
+      at <anonymous> (/root/efw/tests/test-helpers.ts:29:30)
+      at new Promise (1:11)
+      at start (/root/efw/tests/test-helpers.ts:28:12)
+      at start (/root/efw/tests/test-helpers.ts:27:32)
+      at <anonymous> (/root/efw/tests/performance.test.ts:119:22)
+      at <anonymous> (/root/efw/tests/performance.test.ts:14:14)
+(fail) Performance Tests > Performance Benchmarks > should meet basic performance benchmarks [6206086.39ms]
+(fail) Performance Tests > �hq   eet basic performance benchmarks
+-----------------------|---------|---------|-------------------
+File                   | % Funcs | % Lines | Uncovered Line #s
+-----------------------|---------|---------|-------------------
+All files              |   28.57 |   24.16 |
+ src/framework.ts      |   25.00 |   17.28 | 52,56,60,64,68,72,80-83,87-101,105-277,293-295
+ src/middleware.ts     |   25.00 |   13.87 | 20-75,80-108,114-117,123-136,141-162,167-172,177-194
+ src/router.ts         |   28.57 |   35.42 | 37,41,45,49,53,57,61-115
+ tests/test-helpers.ts |   35.71 |   30.06 | 42,46-76,85,90-94,97-101,104,108,112,117-123,127-155,159,163,167-168,172-173,177-178,196-204,209-223
+-----------------------|---------|---------|-------------------
+
+ 0 pass
+ 24 fail
+Ran 24 tests across 1 files. [226.00ms]
+</div>
+        </div>
+    
+    
+    <p><small>Generated on 2025-06-27T15:07:19.604Z</small></p>
+</body>
+</html>

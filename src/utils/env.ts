@@ -26,7 +26,10 @@ export class EnvHelper {
   }
 
   static getNumber(key: string, defaultValue?: number): number {
-    const value = this.get(key, defaultValue?.toString());
+    if (defaultValue !== undefined && !this.has(key)) {
+      return defaultValue;
+    }
+    const value = this.get(key);
     const parsed = Number(value);
     if (isNaN(parsed)) {
       throw new Error(`Environment variable ${key} is not a valid number: ${value}`);
@@ -35,15 +38,26 @@ export class EnvHelper {
   }
 
   static getBoolean(key: string, defaultValue?: boolean): boolean {
-    const value = this.get(key, defaultValue?.toString());
+    if (defaultValue !== undefined && !this.has(key)) {
+      return defaultValue;
+    }
+    const value = this.get(key);
     if (typeof value === 'boolean') return value;
     return value?.toLowerCase() === 'true';
   }
 
-  static getArray(key: string, separator = ',', defaultValue?: string[]): string[] {
-    const value = this.get(key, defaultValue?.join(separator));
-    if (Array.isArray(value)) return value;
-    return value.split(separator).map(s => s.trim());
+  static getArray(key: string, defaultValue?: string[]): string[] {
+    // Always check process.env directly, don't rely on cache
+    const envValue = process.env[key];
+    if (envValue === undefined) {
+      return defaultValue !== undefined ? defaultValue : [];
+    }
+    
+    if (typeof envValue === 'string' && envValue.length > 0) {
+      return envValue.split(',').map(s => s.trim());
+    }
+    
+    return defaultValue !== undefined ? defaultValue : [];
   }
 
   static has(key: string): boolean {
@@ -52,6 +66,21 @@ export class EnvHelper {
 
   static clearCache(): void {
     this.cache.clear();
+  }
+
+  static isDevelopment(): boolean {
+    this.clearCache(); // Clear cache to get fresh NODE_ENV
+    return this.getString('NODE_ENV', 'development') === 'development';
+  }
+
+  static isProduction(): boolean {
+    this.clearCache(); // Clear cache to get fresh NODE_ENV
+    return this.getString('NODE_ENV', 'development') === 'production';
+  }
+
+  static isTest(): boolean {
+    this.clearCache(); // Clear cache to get fresh NODE_ENV
+    return this.getString('NODE_ENV', 'development') === 'test';
   }
 
   private static parseValue(value: string): any {

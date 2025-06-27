@@ -41,7 +41,7 @@ export class AdminPanel {
     const assetVersioning = AssetVersioning.getInstance();
     
     const systemMetrics = monitor.getSystemMetrics();
-    const frameworkInfo = devTools.getFrameworkInfo();
+    const efwInfo = devTools.getEfwInfo();
     const assetStats = assetVersioning.getAssetStats();
     const cacheStats = globalCache.stats();
 
@@ -51,7 +51,7 @@ export class AdminPanel {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Framework</title>
+    <title>Admin Panel - EFW</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -144,7 +144,7 @@ export class AdminPanel {
         <div class="container">
             <div class="header-content">
                 <div>
-                    <h1 class="title">Framework Admin Panel</h1>
+                    <h1 class="title">EFW Admin Panel</h1>
                     <p class="subtitle">System Management & Monitoring</p>
                 </div>
                 <div>
@@ -172,12 +172,12 @@ export class AdminPanel {
             <div class="card">
                 <h2 class="card-title">System Overview</h2>
                 <div class="metric">
-                    <span class="metric-label">Framework Version</span>
-                    <span class="metric-value">${frameworkInfo.version}</span>
+                    <span class="metric-label">EFW Version</span>
+                    <span class="metric-value">${efwInfo.version}</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">Node.js Version</span>
-                    <span class="metric-value">${frameworkInfo.nodeVersion}</span>
+                    <span class="metric-value">${efwInfo.nodeVersion}</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">Environment</span>
@@ -247,15 +247,15 @@ export class AdminPanel {
                 <h2 class="card-title">Routes Summary</h2>
                 <div class="metric">
                     <span class="metric-label">Total Routes</span>
-                    <span class="metric-value">${frameworkInfo.routes.length}</span>
+                    <span class="metric-value">${efwInfo.routes.length}</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">GET Routes</span>
-                    <span class="metric-value">${frameworkInfo.routes.filter(r => r.method === 'GET').length}</span>
+                    <span class="metric-value">${efwInfo.routes.filter(r => r.method === 'GET').length}</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label">POST Routes</span>
-                    <span class="metric-value">${frameworkInfo.routes.filter(r => r.method === 'POST').length}</span>
+                    <span class="metric-value">${efwInfo.routes.filter(r => r.method === 'POST').length}</span>
                 </div>
                 <a href="/admin/routes" class="action-btn">View All Routes</a>
             </div>
@@ -272,7 +272,7 @@ export class AdminPanel {
         <div class="card">
             <h2 class="card-title">System Features</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                ${frameworkInfo.features.map(feature => `
+                ${efwInfo.features.map(feature => `
                     <div style="padding: 10px; background: #f8f9fa; border-radius: 6px; text-align: center;">
                         <span style="font-weight: 600;">✓ ${feature}</span>
                     </div>
@@ -283,11 +283,11 @@ export class AdminPanel {
 
     <div class="footer">
         <div class="container">
-            <p>&copy; 2024 TypeScript Web Framework. Built with ❤️</p>
+            <p>&copy; 2024 EFW (Efficient Framework for Web). Built with ❤️</p>
             <p style="margin-top: 10px; font-size: 0.9rem;">
                 Server Time: ${new Date().toLocaleString()} | 
                 Environment: ${config.get('env')} |
-                Version: ${frameworkInfo.version}
+                Version: ${efwInfo.version}
             </p>
         </div>
     </div>

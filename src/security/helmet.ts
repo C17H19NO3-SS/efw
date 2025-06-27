@@ -1,4 +1,4 @@
-import type { Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 
 export interface HelmetOptions {
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
@@ -96,7 +96,7 @@ export class HelmetMiddleware {
     };
   }
 
-  private setContentSecurityPolicy(res: FrameworkResponse): void {
+  private setContentSecurityPolicy(res: EfwResponse): void {
     const csp = this.options.contentSecurityPolicy;
     if (!csp) return;
 
@@ -119,13 +119,13 @@ export class HelmetMiddleware {
     res.setHeader(headerName, cspValue);
   }
 
-  private setCrossOriginEmbedderPolicy(res: FrameworkResponse): void {
+  private setCrossOriginEmbedderPolicy(res: EfwResponse): void {
     if (this.options.crossOriginEmbedderPolicy) {
       res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
     }
   }
 
-  private setCrossOriginOpenerPolicy(res: FrameworkResponse): void {
+  private setCrossOriginOpenerPolicy(res: EfwResponse): void {
     const coep = this.options.crossOriginOpenerPolicy;
     if (!coep) return;
 
@@ -135,7 +135,7 @@ export class HelmetMiddleware {
     res.setHeader('Cross-Origin-Opener-Policy', policy);
   }
 
-  private setCrossOriginResourcePolicy(res: FrameworkResponse): void {
+  private setCrossOriginResourcePolicy(res: EfwResponse): void {
     const corp = this.options.crossOriginResourcePolicy;
     if (!corp) return;
 
@@ -145,7 +145,7 @@ export class HelmetMiddleware {
     res.setHeader('Cross-Origin-Resource-Policy', policy);
   }
 
-  private setDnsPrefetchControl(res: FrameworkResponse): void {
+  private setDnsPrefetchControl(res: EfwResponse): void {
     const dns = this.options.dnsPrefetchControl;
     if (!dns) return;
 
@@ -155,7 +155,7 @@ export class HelmetMiddleware {
     res.setHeader('X-DNS-Prefetch-Control', allow ? 'on' : 'off');
   }
 
-  private setFrameguard(res: FrameworkResponse): void {
+  private setFrameguard(res: EfwResponse): void {
     const frameguard = this.options.frameguard;
     if (!frameguard) return;
 
@@ -172,13 +172,13 @@ export class HelmetMiddleware {
     }
   }
 
-  private setHidePoweredBy(res: FrameworkResponse): void {
+  private setHidePoweredBy(res: EfwResponse): void {
     if (this.options.hidePoweredBy) {
       res.setHeader('X-Powered-By', '');
     }
   }
 
-  private setHsts(res: FrameworkResponse): void {
+  private setHsts(res: EfwResponse): void {
     const hsts = this.options.hsts;
     if (!hsts) return;
 
@@ -198,25 +198,25 @@ export class HelmetMiddleware {
     res.setHeader('Strict-Transport-Security', value);
   }
 
-  private setIeNoOpen(res: FrameworkResponse): void {
+  private setIeNoOpen(res: EfwResponse): void {
     if (this.options.ieNoOpen) {
       res.setHeader('X-Download-Options', 'noopen');
     }
   }
 
-  private setNoSniff(res: FrameworkResponse): void {
+  private setNoSniff(res: EfwResponse): void {
     if (this.options.noSniff) {
       res.setHeader('X-Content-Type-Options', 'nosniff');
     }
   }
 
-  private setOriginAgentCluster(res: FrameworkResponse): void {
+  private setOriginAgentCluster(res: EfwResponse): void {
     if (this.options.originAgentCluster) {
       res.setHeader('Origin-Agent-Cluster', '?1');
     }
   }
 
-  private setPermittedCrossDomainPolicies(res: FrameworkResponse): void {
+  private setPermittedCrossDomainPolicies(res: EfwResponse): void {
     const pcdp = this.options.permittedCrossDomainPolicies;
     if (!pcdp) return;
 
@@ -226,7 +226,7 @@ export class HelmetMiddleware {
     res.setHeader('X-Permitted-Cross-Domain-Policies', policy);
   }
 
-  private setReferrerPolicy(res: FrameworkResponse): void {
+  private setReferrerPolicy(res: EfwResponse): void {
     const rp = this.options.referrerPolicy;
     if (!rp) return;
 
@@ -237,14 +237,14 @@ export class HelmetMiddleware {
     res.setHeader('Referrer-Policy', policyValue);
   }
 
-  private setXssFilter(res: FrameworkResponse): void {
+  private setXssFilter(res: EfwResponse): void {
     if (this.options.xssFilter) {
       res.setHeader('X-XSS-Protection', '0');
     }
   }
 
   public middleware(): Middleware {
-    return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       this.setContentSecurityPolicy(res);
       this.setCrossOriginEmbedderPolicy(res);
       this.setCrossOriginOpenerPolicy(res);

@@ -1,10 +1,10 @@
-export class FrameworkError extends Error {
+export class EfwError extends Error {
   public statusCode: number;
   public isOperational: boolean;
 
   constructor(message: string, statusCode: number = 500, isOperational: boolean = true) {
     super(message);
-    this.name = 'FrameworkError';
+    this.name = 'EfwError';
     this.statusCode = statusCode;
     this.isOperational = isOperational;
     
@@ -12,7 +12,7 @@ export class FrameworkError extends Error {
   }
 }
 
-export class ValidationError extends FrameworkError {
+export class ValidationError extends EfwError {
   public field?: string;
   public value?: any;
 
@@ -24,35 +24,35 @@ export class ValidationError extends FrameworkError {
   }
 }
 
-export class AuthenticationError extends FrameworkError {
+export class AuthenticationError extends EfwError {
   constructor(message: string = 'Authentication failed') {
     super(message, 401);
     this.name = 'AuthenticationError';
   }
 }
 
-export class AuthorizationError extends FrameworkError {
+export class AuthorizationError extends EfwError {
   constructor(message: string = 'Access denied') {
     super(message, 403);
     this.name = 'AuthorizationError';
   }
 }
 
-export class NotFoundError extends FrameworkError {
+export class NotFoundError extends EfwError {
   constructor(message: string = 'Resource not found') {
     super(message, 404);
     this.name = 'NotFoundError';
   }
 }
 
-export class ConflictError extends FrameworkError {
+export class ConflictError extends EfwError {
   constructor(message: string = 'Resource conflict') {
     super(message, 409);
     this.name = 'ConflictError';
   }
 }
 
-export class RateLimitError extends FrameworkError {
+export class RateLimitError extends EfwError {
   public retryAfter?: number;
 
   constructor(message: string = 'Too many requests', retryAfter?: number) {
@@ -62,7 +62,7 @@ export class RateLimitError extends FrameworkError {
   }
 }
 
-export class DatabaseError extends FrameworkError {
+export class DatabaseError extends EfwError {
   public query?: string;
 
   constructor(message: string, query?: string) {
@@ -72,7 +72,7 @@ export class DatabaseError extends FrameworkError {
   }
 }
 
-export class ExternalServiceError extends FrameworkError {
+export class ExternalServiceError extends EfwError {
   public service?: string;
   public originalError?: Error;
 
@@ -102,7 +102,7 @@ export interface ErrorResponse {
 export function formatError(error: Error, path?: string, includeStack: boolean = false): ErrorResponse {
   const timestamp = new Date().toISOString();
   
-  if (error instanceof FrameworkError) {
+  if (error instanceof EfwError) {
     const response: ErrorResponse = {
       error: {
         name: error.name,
@@ -146,7 +146,7 @@ export function formatError(error: Error, path?: string, includeStack: boolean =
 }
 
 export function isOperationalError(error: Error): boolean {
-  if (error instanceof FrameworkError) {
+  if (error instanceof EfwError) {
     return error.isOperational;
   }
   return false;

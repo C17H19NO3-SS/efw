@@ -1,4 +1,4 @@
-import type { Middleware, ErrorMiddleware, FrameworkRequest, FrameworkResponse, NextFunction } from './types';
+import type { Middleware, ErrorMiddleware, EfwRequest, EfwResponse, NextFunction } from './types';
 
 export class MiddlewareStack {
   private middlewares: Array<{ path?: string; middleware: Middleware }> = [];
@@ -20,7 +20,7 @@ export class MiddlewareStack {
     }
   }
 
-  public async execute(req: FrameworkRequest, res: FrameworkResponse): Promise<void> {
+  public async execute(req: EfwRequest, res: EfwResponse): Promise<void> {
     let currentIndex = 0;
     
     const next: NextFunction = (error?: Error) => {
@@ -58,7 +58,7 @@ export class MiddlewareStack {
     await executeNext();
   }
 
-  private async handleError(error: Error, req: FrameworkRequest, res: FrameworkResponse): Promise<void> {
+  private async handleError(error: Error, req: EfwRequest, res: EfwResponse): Promise<void> {
     for (const { path, middleware } of this.errorMiddlewares) {
       if (path && !req.path.startsWith(path)) {
         continue;
@@ -78,7 +78,7 @@ export class MiddlewareStack {
 }
 
 export function createBodyParser(): Middleware {
-  return async (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return async (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
       try {
         const contentType = req.headers['content-type'] || '';
@@ -111,7 +111,7 @@ export function createBodyParser(): Middleware {
 }
 
 export function createQueryParser(): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     const url = new URL(req.url, 'http://localhost');
     req.query = Object.fromEntries(url.searchParams);
     req.path = url.pathname;
@@ -120,7 +120,7 @@ export function createQueryParser(): Middleware {
 }
 
 export function createCookieParser(): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     const cookies: Record<string, string> = {};
     const cookieHeader = req.headers.cookie;
     
@@ -139,7 +139,7 @@ export function createCookieParser(): Middleware {
 }
 
 export function createStaticMiddleware(staticPath: string): Middleware {
-  return async (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return async (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (req.method !== 'GET') {
       return next();
     }
@@ -165,7 +165,7 @@ export function createStaticMiddleware(staticPath: string): Middleware {
 }
 
 export function createRequestIdMiddleware(): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (!req.requestId) {
       req.requestId = Math.random().toString(36).substr(2, 9);
     }

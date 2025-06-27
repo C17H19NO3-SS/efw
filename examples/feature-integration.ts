@@ -1,4 +1,4 @@
-import { Framework } from '../src/framework';
+import { Efw } from '../src/framework';
 import { 
   createMonitoringMiddleware, 
   createRequestInspectorMiddleware,
@@ -14,8 +14,8 @@ import {
 // Initialize configuration
 const config = ConfigManager.getInstance();
 
-// Create framework instance
-const app = new Framework({
+// Create EFW instance
+const app = new Efw({
   staticPath: './public'
 });
 
@@ -98,7 +98,7 @@ app.get('/dev/routes', (req, res) => {
 
 app.get('/dev/info', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
-  res.send(devTools.generateFrameworkInfoHTML());
+  res.send(devTools.generateEfwInfoHTML());
 });
 
 app.get('/dev/inspector', (req, res) => {
@@ -150,7 +150,7 @@ app.use((req, res, next) => {
   res.status(404);
   res.setHeader('Content-Type', 'text/html');
   res.send(ErrorPages.notFound({
-    brandName: 'My Framework App',
+    brandName: 'My EFW App',
     homeUrl: '/',
     theme: 'light'
   }));
@@ -163,7 +163,7 @@ app.use((error: Error, req: any, res: any, next: any) => {
   res.status(500);
   res.setHeader('Content-Type', 'text/html');
   res.send(ErrorPages.internalServerError({
-    brandName: 'My Framework App',
+    brandName: 'My EFW App',
     homeUrl: '/',
     showDetails: config.isDevelopment(),
     theme: 'light'
@@ -173,7 +173,7 @@ app.use((error: Error, req: any, res: any, next: any) => {
 // Example route demonstrating various features
 app.get('/demo', (req, res) => {
   const demoData = {
-    message: 'This demonstrates the new framework features',
+    message: 'This demonstrates the new EFW features',
     features: [
       'Environment configuration',
       'Request monitoring',

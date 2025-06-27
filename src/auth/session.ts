@@ -1,4 +1,4 @@
-import type { SessionOptions, SessionStore, Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { SessionOptions, SessionStore, Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 
 export class MemorySessionStore implements SessionStore {
   private sessions: Map<string, any> = new Map();
@@ -168,7 +168,7 @@ export class SessionManager {
   }
 
   public middleware(): Middleware {
-    return async (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return async (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       try {
         let sessionId: string | null = null;
         let session: any = null;

@@ -1,4 +1,4 @@
-import type { Route, Handler, FrameworkRequest, FrameworkResponse, NextFunction } from './types';
+import type { Route, Handler, EfwRequest, EfwResponse, NextFunction } from './types';
 
 export class Router {
   private routes: Route[] = [];
@@ -78,8 +78,8 @@ export class Router {
 
   public async executeHandlers(
     handlers: Handler[],
-    req: FrameworkRequest,
-    res: FrameworkResponse
+    req: EfwRequest,
+    res: EfwResponse
   ): Promise<void> {
     let currentIndex = 0;
 

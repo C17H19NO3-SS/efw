@@ -21,12 +21,12 @@ export class PasswordHasher {
     
     const hash = await this.pbkdf2(password, salt, opts.iterations, opts.keyLength, opts.algorithm);
     
-    return `${opts.algorithm}:${opts.iterations}:${salt.toString('base64')}:${hash.toString('base64')}`;
+    return `${opts.algorithm}$${opts.iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
   }
 
   static async verify(password: string, hashedPassword: string): Promise<boolean> {
     try {
-      const [algorithm, iterations, salt, hash] = hashedPassword.split(':');
+      const [algorithm, iterations, salt, hash] = hashedPassword.split('$');
       
       if (!algorithm || !iterations || !salt || !hash) {
         throw new Error('Invalid hash format');
@@ -55,12 +55,12 @@ export class PasswordHasher {
     
     const hash = this.pbkdf2Sync(password, salt, opts.iterations, opts.keyLength, opts.algorithm);
     
-    return `${opts.algorithm}:${opts.iterations}:${salt.toString('base64')}:${hash.toString('base64')}`;
+    return `${opts.algorithm}$${opts.iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
   }
 
   static verifySync(password: string, hashedPassword: string): boolean {
     try {
-      const [algorithm, iterations, salt, hash] = hashedPassword.split(':');
+      const [algorithm, iterations, salt, hash] = hashedPassword.split('$');
       
       if (!algorithm || !iterations || !salt || !hash) {
         throw new Error('Invalid hash format');
@@ -163,5 +163,26 @@ export class PasswordHasher {
       feedback,
       isStrong: score >= 5
     };
+  }
+
+  // Instance methods for compatibility with test
+  async hash(password: string, options?: HashOptions): Promise<string> {
+    return PasswordHasher.hash(password, options);
+  }
+
+  async verify(password: string, hashedPassword: string): Promise<boolean> {
+    return PasswordHasher.verify(password, hashedPassword);
+  }
+
+  checkStrength(password: string) {
+    const result = PasswordHasher.checkStrength(password);
+    // Return simplified string for tests
+    if (result.score <= 2) return 'weak';
+    if (result.score <= 5) return 'medium';
+    return 'strong';
+  }
+
+  generate(length: number = 12, includeSymbols: boolean = true): string {
+    return PasswordHasher.generatePassword(length, includeSymbols);
   }
 }

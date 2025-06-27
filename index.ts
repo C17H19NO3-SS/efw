@@ -1,4 +1,4 @@
-import { Framework } from './src/framework';
+import { Efw } from './src/framework';
 import { createJwtMiddleware, requireAuth } from './src/auth/jwt';
 import { createSessionMiddleware } from './src/auth/session';
 import { cors } from './src/security/cors';
@@ -7,9 +7,9 @@ import { createBasicRateLimit } from './src/security/rateLimit';
 import { validate, commonSchemas, createSchema } from './src/validation/schema';
 import { logger } from './src/utils/logger';
 import { createRequestIdMiddleware } from './src/middleware';
-import { FrameworkRequest, FrameworkResponse, NextFunction, ErrorMiddleware } from './src/types';
+import { EfwRequest, EfwResponse, NextFunction, ErrorMiddleware } from './src/types';
 
-const app = new Framework({
+const app = new Efw({
   staticPath: './public',
   templateEngine: 'handlebars',
   templateDir: './views'
@@ -47,7 +47,7 @@ app.get('/', async (req, res) => {
     res.html(content);
   } catch (error) {
     res.json({ 
-      message: 'TypeScript Web Framework', 
+      message: 'EFW (Efficient Framework for Web)', 
       version: '1.0.0',
       timestamp: new Date().toISOString()
     });
@@ -173,14 +173,14 @@ app.post('/api/upload', (req, res) => {
 // Template rendering example
 app.get('/welcome', (req, res) => {
   res.render('welcome', {
-    title: 'Welcome to TypeScript Web Framework',
+    title: 'Welcome to EFW (Efficient Framework for Web)',
     message: 'This is a server-rendered page using Handlebars templates',
     user: req.session?.get('user')
   });
 });
 
 // Error handling middleware
-const errorHandler: ErrorMiddleware = (error: Error, req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+const errorHandler: ErrorMiddleware = (error: Error, req: EfwRequest, res: EfwResponse, next: NextFunction) => {
   console.error('Unhandled error:', {
     requestId: req.requestId,
     error: {
@@ -220,7 +220,7 @@ app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
   console.log(`📖 API Documentation:`);
   console.log(`   GET  /                    - Welcome message`);
-  console.log(`   GET  /demo                - Framework demo page`);
+  console.log(`   GET  /demo                - EFW demo page`);
   console.log(`   GET  /health              - Health check`);
   console.log(`   POST /api/register        - User registration`);
   console.log(`   POST /api/login           - User login`);

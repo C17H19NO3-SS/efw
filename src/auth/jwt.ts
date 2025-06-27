@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import type { JwtOptions, Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { JwtOptions, Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 import { AuthenticationError, AuthorizationError } from '../utils/errors';
 
 export interface JwtPayload {
@@ -53,7 +53,7 @@ export class JwtAuth {
   }
 
   public middleware(): Middleware {
-    return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       try {
         const token = this.extractToken(req);
         
@@ -72,7 +72,7 @@ export class JwtAuth {
   }
 
   public optionalMiddleware(): Middleware {
-    return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       try {
         const token = this.extractToken(req);
         
@@ -88,7 +88,7 @@ export class JwtAuth {
     };
   }
 
-  private extractToken(req: FrameworkRequest): string | null {
+  private extractToken(req: EfwRequest): string | null {
     const authHeader = req.headers.authorization;
     
     if (authHeader && authHeader.startsWith('Bearer ')) {
@@ -120,7 +120,7 @@ export function createOptionalJwtMiddleware(options: JwtOptions): Middleware {
 }
 
 export function requireAuth(): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
     }
@@ -129,7 +129,7 @@ export function requireAuth(): Middleware {
 }
 
 export function requireRole(role: string): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
     }
@@ -143,7 +143,7 @@ export function requireRole(role: string): Middleware {
 }
 
 export function requireRoles(roles: string[]): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
     }
@@ -157,7 +157,7 @@ export function requireRoles(roles: string[]): Middleware {
 }
 
 export function requirePermission(permission: string): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     if (!req.user) {
       throw new AuthenticationError('Authentication required');
     }

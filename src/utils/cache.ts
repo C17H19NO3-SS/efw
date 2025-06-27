@@ -15,6 +15,8 @@ export class InMemoryCache<T = any> {
   private cache = new Map<string, CacheEntry<T>>();
   private options: Required<CacheOptions>;
   private timers = new Map<string, NodeJS.Timeout>();
+  private hits = 0;
+  private misses = 0;
 
   constructor(options: CacheOptions = {}) {
     this.options = {
@@ -59,6 +61,7 @@ export class InMemoryCache<T = any> {
     const entry = this.cache.get(key);
     
     if (!entry) {
+      this.misses++;
       return undefined;
     }
 
@@ -67,11 +70,13 @@ export class InMemoryCache<T = any> {
     // Check if expired
     if (now > entry.expiry) {
       this.delete(key);
+      this.misses++;
       return undefined;
     }
 
     // Update access time
     entry.accessed = now;
+    this.hits++;
     
     return entry.value;
   }
@@ -205,9 +210,19 @@ export class InMemoryCache<T = any> {
     };
   }
 
+  getStats(): { hits: number; misses: number; size: number; hitRate: number } {
+    const total = this.hits + this.misses;
+    return {
+      hits: this.hits,
+      misses: this.misses,
+      size: this.cache.size,
+      hitRate: total > 0 ? this.hits / total : 0
+    };
+  }
+
   private evictLRU(): void {
     let oldestKey: string | null = null;
-    let oldestAccess = Date.now();
+    let oldestAccess = Infinity;
 
     for (const [key, entry] of this.cache) {
       if (entry.accessed < oldestAccess) {
@@ -252,10 +267,20 @@ export function cache<T>(
 
 export function memoize<TArgs extends any[], TReturn>(
   fn: (...args: TArgs) => TReturn | Promise<TReturn>,
-  keyGenerator?: (...args: TArgs) => string,
+  keyGeneratorOrTtl?: ((...args: TArgs) => string) | number,
   ttl?: number
 ): (...args: TArgs) => Promise<TReturn> {
-  const fnCache = new InMemoryCache<TReturn>({ ttl });
+  let keyGenerator: ((...args: TArgs) => string) | undefined;
+  let actualTtl: number | undefined;
+  
+  if (typeof keyGeneratorOrTtl === 'number') {
+    actualTtl = keyGeneratorOrTtl;
+  } else {
+    keyGenerator = keyGeneratorOrTtl;
+    actualTtl = ttl;
+  }
+  
+  const fnCache = new InMemoryCache<TReturn>({ ttl: actualTtl });
   
   return async (...args: TArgs): Promise<TReturn> => {
     const key = keyGenerator ? keyGenerator(...args) : JSON.stringify(args);

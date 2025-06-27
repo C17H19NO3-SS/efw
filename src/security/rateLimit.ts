@@ -1,14 +1,14 @@
-import type { RateLimitOptions, Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { RateLimitOptions, Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 import { RateLimitError } from '../utils/errors';
 
 export interface ExtendedRateLimitOptions extends RateLimitOptions {
-  keyGenerator?: (req: FrameworkRequest) => string;
-  handler?: (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => void;
-  onLimitReached?: (req: FrameworkRequest, res: FrameworkResponse) => void;
-  skip?: (req: FrameworkRequest) => boolean;
+  keyGenerator?: (req: EfwRequest) => string;
+  handler?: (req: EfwRequest, res: EfwResponse, next: NextFunction) => void;
+  onLimitReached?: (req: EfwRequest, res: EfwResponse) => void;
+  skip?: (req: EfwRequest) => boolean;
   skipSuccessfulRequests?: boolean;
   skipFailedRequests?: boolean;
-  requestWasSuccessful?: (req: FrameworkRequest, res: FrameworkResponse) => boolean;
+  requestWasSuccessful?: (req: EfwRequest, res: EfwResponse) => boolean;
   headers?: boolean;
   draft_polli_ratelimit_headers?: boolean;
 }
@@ -103,22 +103,22 @@ export class RateLimitMiddleware {
     }
   }
 
-  private defaultKeyGenerator(req: FrameworkRequest): string {
+  private defaultKeyGenerator(req: EfwRequest): string {
     return req.headers['x-forwarded-for'] || 
            req.headers['x-real-ip'] || 
            req.headers['cf-connecting-ip'] || 
            'unknown';
   }
 
-  private defaultHandler(req: FrameworkRequest, res: FrameworkResponse, next: NextFunction): void {
+  private defaultHandler(req: EfwRequest, res: EfwResponse, next: NextFunction): void {
     throw new RateLimitError(this.options.message, this.options.windowMs / 1000);
   }
 
-  private defaultRequestWasSuccessful(req: FrameworkRequest, res: FrameworkResponse): boolean {
+  private defaultRequestWasSuccessful(req: EfwRequest, res: EfwResponse): boolean {
     return res.statusCode < 400;
   }
 
-  private setHeaders(res: FrameworkResponse, totalHits: number, timeToExpire: number): void {
+  private setHeaders(res: EfwResponse, totalHits: number, timeToExpire: number): void {
     if (!this.options.headers) return;
 
     const windowMs = this.options.windowMs;
@@ -144,7 +144,7 @@ export class RateLimitMiddleware {
   }
 
   public middleware(): Middleware {
-    return async (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return async (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       if (this.options.skip(req)) {
         return next();
       }

@@ -54,8 +54,8 @@ export class CookieHelper {
     return cookie;
   }
 
-  static parse(cookieHeader: string): Record<string, string> {
-    const cookies: Record<string, string> = {};
+  static parse(cookieHeader: string): Record<string, any> {
+    const cookies: Record<string, any> = {};
 
     if (!cookieHeader) {
       return cookies;
@@ -66,7 +66,18 @@ export class CookieHelper {
       if (parts.length === 2) {
         const name = decodeURIComponent(parts[0].trim());
         const value = decodeURIComponent(parts[1].trim());
-        cookies[name] = value;
+        // Convert numeric values
+        if (/^\d+$/.test(value)) {
+          cookies[name] = parseInt(value, 10);
+        } else {
+          cookies[name] = value;
+        }
+      } else if (parts.length === 1) {
+        // Handle boolean attributes like httpOnly, secure
+        const attribute = parts[0].trim();
+        if (['httpOnly', 'secure', 'sameSite'].includes(attribute)) {
+          cookies[attribute] = true;
+        }
       }
     });
 

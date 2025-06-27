@@ -2,7 +2,7 @@ export interface ApiResponse<T = any> {
   success: boolean;
   data?: T;
   error?: {
-    code: string;
+    code: string | number;
     message: string;
     details?: any;
   };
@@ -20,12 +20,16 @@ export interface ApiResponse<T = any> {
     hasNext: boolean;
     hasPrev: boolean;
   };
+  timestamp?: string;
 }
 
 export interface PaginationOptions {
   page?: number;
   limit?: number;
   total?: number;
+  totalPages?: number;
+  hasNext?: boolean;
+  hasPrev?: boolean;
 }
 
 export interface ErrorDetails {
@@ -41,11 +45,13 @@ export class ResponseBuilder {
   };
 
   static success<T>(data: T, meta?: Record<string, any>): ApiResponse<T> {
+    const timestamp = new Date().toISOString();
     return {
       success: true,
       data,
+      timestamp,
       meta: {
-        timestamp: new Date().toISOString(),
+        timestamp,
         ...this.defaultMeta,
         ...meta
       }
@@ -53,11 +59,12 @@ export class ResponseBuilder {
   }
 
   static error(
-    code: string, 
-    message: string, 
+    message: string,
+    code: string | number = 'GENERIC_ERROR', 
     details?: any, 
     meta?: Record<string, any>
   ): ApiResponse<never> {
+    const timestamp = new Date().toISOString();
     return {
       success: false,
       error: {
@@ -65,8 +72,9 @@ export class ResponseBuilder {
         message,
         details
       },
+      timestamp,
       meta: {
-        timestamp: new Date().toISOString(),
+        timestamp,
         ...this.defaultMeta,
         ...meta
       }
@@ -78,22 +86,15 @@ export class ResponseBuilder {
     pagination: PaginationOptions,
     meta?: Record<string, any>
   ): ApiResponse<T[]> {
-    const { page = 1, limit = 10, total = 0 } = pagination;
-    const totalPages = Math.ceil(total / limit);
+    const timestamp = new Date().toISOString();
 
     return {
       success: true,
       data,
-      pagination: {
-        page,
-        limit,
-        total,
-        totalPages,
-        hasNext: page < totalPages,
-        hasPrev: page > 1
-      },
+      timestamp,
+      pagination: pagination as any,
       meta: {
-        timestamp: new Date().toISOString(),
+        timestamp,
         ...this.defaultMeta,
         ...meta
       }
@@ -141,9 +142,9 @@ export class ResponseBuilder {
 
   static validationError(errors: ErrorDetails[], meta?: Record<string, any>): ApiResponse<never> {
     return this.error(
-      'VALIDATION_ERROR',
       'Validation failed',
-      { errors },
+      400,
+      errors,
       meta
     );
   }

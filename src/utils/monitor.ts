@@ -1,4 +1,4 @@
-import type { FrameworkRequest, FrameworkResponse } from '../types';
+import type { EfwRequest, EfwResponse } from '../types';
 
 export interface RequestMetrics {
   path: string;
@@ -39,7 +39,7 @@ export class Monitor {
     return Monitor.instance;
   }
 
-  trackRequest(req: FrameworkRequest, res: FrameworkResponse, responseTime: number): void {
+  trackRequest(req: EfwRequest, res: EfwResponse, responseTime: number): void {
     const key = `${req.method}:${req.path}`;
     const statusCode = res.statusCode || 200;
     
@@ -139,7 +139,7 @@ export class Monitor {
 export function createMonitoringMiddleware() {
   const monitor = Monitor.getInstance();
   
-  return async (req: FrameworkRequest, res: FrameworkResponse, next: () => Promise<void>) => {
+  return async (req: EfwRequest, res: EfwResponse, next: () => Promise<void>) => {
     const startTime = Date.now();
     
     await next();

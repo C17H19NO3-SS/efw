@@ -32,7 +32,7 @@ export class Dashboard {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Framework Dashboard</title>
+    <title>EFW Dashboard</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
@@ -75,7 +75,7 @@ export class Dashboard {
 <body>
     <div class="container">
         <div class="header">
-            <h1 class="title">Framework Dashboard</h1>
+            <h1 class="title">EFW Dashboard</h1>
             <p class="subtitle">Real-time monitoring and analytics</p>
         </div>
 
@@ -188,7 +188,7 @@ export class Dashboard {
     const metrics = monitor.export();
     const { system, requests, summary } = metrics;
 
-    let output = '\n=== FRAMEWORK DASHBOARD ===\n\n';
+    let output = '\n=== EFW DASHBOARD ===\n\n';
     
     output += 'SYSTEM OVERVIEW:\n';
     output += `  Uptime: ${this.formatDuration(system.uptime)}\n`;

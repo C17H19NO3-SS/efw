@@ -1,4 +1,4 @@
-import type { CorsOptions, Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { CorsOptions, Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 
 export interface ExtendedCorsOptions extends CorsOptions {
   maxAge?: number;
@@ -48,7 +48,7 @@ export class CorsMiddleware {
     return false;
   }
 
-  private setHeaders(res: FrameworkResponse, origin: string | undefined): void {
+  private setHeaders(res: EfwResponse, origin: string | undefined): void {
     if (this.isOriginAllowed(origin)) {
       if (origin) {
         res.setHeader('Access-Control-Allow-Origin', origin);
@@ -75,7 +75,7 @@ export class CorsMiddleware {
   }
 
   public middleware(): Middleware {
-    return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+    return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
       const origin = req.headers.origin;
 
       this.setHeaders(res, origin);

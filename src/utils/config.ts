@@ -79,14 +79,44 @@ export class ConfigManager {
   }
 
   isDevelopment(): boolean {
-    return this.config.env === 'development';
+    return this.getCurrentEnv() === 'development';
   }
 
   isProduction(): boolean {
-    return this.config.env === 'production';
+    return this.getCurrentEnv() === 'production';
   }
 
   isTest(): boolean {
-    return this.config.env === 'test';
+    return this.getCurrentEnv() === 'test';
+  }
+
+  private getCurrentEnv(): string {
+    EnvHelper.clearCache(); // Always get fresh NODE_ENV
+    return EnvHelper.getString('NODE_ENV', 'development');
+  }
+
+  reset(): void {
+    EnvHelper.clearCache(); // Clear env cache before reloading
+    this.config = this.loadConfig();
+  }
+
+  load(config: Partial<ConfigOptions>): void {
+    this.config = { ...this.config, ...config };
+  }
+
+  merge(config: Partial<ConfigOptions>): void {
+    this.config = this.deepMerge(this.config, config);
+  }
+
+  private deepMerge(target: any, source: any): any {
+    const result = { ...target };
+    for (const key in source) {
+      if (source[key] !== null && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        result[key] = this.deepMerge(target[key] || {}, source[key]);
+      } else {
+        result[key] = source[key];
+      }
+    }
+    return result;
   }
 }

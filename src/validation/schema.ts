@@ -1,4 +1,4 @@
-import type { ValidationSchema, Middleware, FrameworkRequest, FrameworkResponse, NextFunction } from '../types';
+import type { ValidationSchema, Middleware, EfwRequest, EfwResponse, NextFunction } from '../types';
 import { ValidationError } from '../utils/errors';
 
 export interface ValidateOptions {
@@ -113,7 +113,7 @@ export class SchemaValidator {
 }
 
 export function validate(options: ValidateOptions): Middleware {
-  return (req: FrameworkRequest, res: FrameworkResponse, next: NextFunction) => {
+  return (req: EfwRequest, res: EfwResponse, next: NextFunction) => {
     try {
       const errors: ValidationError[] = [];
 
